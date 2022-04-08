@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grow, styled } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Row from "./Row";
 import Heading from "./Heading";
+
+import { getLeads } from "../../controllers/leads";
 
 const leads = [
   { id: 1, name: "Empresa 1" },
@@ -27,6 +29,13 @@ const Grid = styled("div")(({ theme }) => ({
 }));
 
 const Leads = () => {
+  const [leeds, setLeeds] = useState([]);
+
+  useEffect(() => {
+    setLeeds(getLeads());
+  }, [localStorage.getItem("leads")]);
+
+  console.log(leeds);
   return (
     <ThemeProvider theme={gridTheme}>
       <Grow in>

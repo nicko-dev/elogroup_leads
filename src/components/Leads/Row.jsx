@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Paper, styled } from "@mui/material";
-
 import { useDrag, useDrop } from "react-dnd";
+
 
 const Item = styled(Paper, {
   shouldForwardProp: (prop) => prop !== "color",
@@ -42,8 +42,6 @@ const Row = ({ lead, stages }) => {
       isOver: !!monitor.isOver(),
     }),
   }));
-
-  console.log(currentStage);
 
   return stages.map((stage, idx) => {
     if (!lead) {
