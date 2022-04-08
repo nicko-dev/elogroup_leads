@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Paper, styled } from "@mui/material";
 import { useDrag, useDrop } from "react-dnd";
 
+import { useDispatch } from "react-redux";
+import { updateLead } from "../../storeConfig/slices/leadsSlice";
+
 
 const Item = styled(Paper, {
   shouldForwardProp: (prop) => prop !== "color",
@@ -19,46 +22,48 @@ const Item = styled(Paper, {
 }));
 
 const Row = ({ lead, stages }) => {
-  const [currentStage, setCurrentStage] = useState(0);
+  const dispatch = useDispatch();
 
   //função que atualiza o estado do componente quando um item é "dropado" no local adequado
   const handleChange = () => {
-    setCurrentStage((prevStage) => prevStage + 1);
+    let nextStage = lead.stage + 1;
+    console.log(lead)
+    let updatedLead={...lead, stage: nextStage}
+    dispatch(updateLead(updatedLead))
   };
 
   //hook da biblioteca "react-dnd" para identificar os itens "dragáveis"
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: `${lead?.id}`,
+    type: `${lead?.email}`,
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
-  }));
+  }),[lead]);
 
   //hook da biblioteca "react-dnd" para identificar os itens "dropáveis"
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: `${lead?.id}`,
+    accept: `${lead?.email}`,
     drop: () => handleChange(),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
-  }));
+  }),[lead]);
 
   return stages.map((stage, idx) => {
     if (!lead) {
       // sem lead retorna itens do cabeçalho (estágios)
       return <Item key={idx}>{stage}</Item>;
-    } else if (idx === currentStage) {
+    } else if (idx === lead.stage) {
       // se tem lead e o indice do array é igual ao estágio da lead, retorna o Item "dragável" com o nome da empresa
       return (
         <Item
           key={idx}
           ref={drag}
-          style={{ cursor: isDragging ? "grabbing" : "grab" }}
         >
           {lead.name}
         </Item>
       );
-    } else if (idx === currentStage + 1) {
+    } else if (idx === lead.stage + 1) {
       //se é o espaço à direita do estágio atual da lead, retorna o Item "dropável"
       return (
         <Item

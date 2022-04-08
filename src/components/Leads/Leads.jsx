@@ -4,16 +4,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Row from "./Row";
 import Heading from "./Heading";
 
-import { getLeads } from "../../controllers/leads";
+import { useDispatch, useSelector } from "react-redux";
+import { getLeads, selectAllLeads } from "../../storeConfig/slices/leadsSlice";
 
-const leads = [
-  { id: 1, name: "Empresa 1" },
-  { id: 2, name: "Empresa 2" },
-  { id: 3, name: "Empresa 3" },
-  { id: 4, name: "Empresa 4" },
-  { id: 5, name: "Empresa 5" },
-];
-
+//array de estágios possíveis da lead
 const stages = ["Cliente Potencial", "Dados Confirmados", "Reunião Agendada"];
 
 const gridTheme = createTheme({ columns: stages.length });
@@ -29,13 +23,16 @@ const Grid = styled("div")(({ theme }) => ({
 }));
 
 const Leads = () => {
-  const [leeds, setLeeds] = useState([]);
+  const dispatch = useDispatch();
+  const leadsStatus = useSelector((state) => state.leads.status);
+  const leads = useSelector(selectAllLeads);
 
   useEffect(() => {
-    setLeeds(getLeads());
-  }, [localStorage.getItem("leads")]);
+    if (leadsStatus !== "succeeded") {
+      dispatch(getLeads());
+    }
+  }, [leadsStatus]);
 
-  console.log(leeds);
   return (
     <ThemeProvider theme={gridTheme}>
       <Grow in>
