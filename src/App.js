@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Box, styled } from "@mui/material";
 import Leads from "./components/Leads/Leads";
-import Form from "./components/Form/Form";
+import LeadForm from "./components/LeadForm/LeadForm";
+import NavBar from "./components/NavBar/NavBar";
+import AuthForm from "./components/AuthForm/AuthForm";
 
 const Home = styled(Box)(() => ({
   display: "flex",
@@ -19,12 +21,14 @@ const FormContainer = styled(Box)(() => ({
 const App = () => {
   return (
     <Container maxWidth="lg">
+      <NavBar />
+      <AuthForm />
       <Home>
         <LeadsContainer>
           <Leads />
         </LeadsContainer>
         <FormContainer>
-          <Form />
+          <LeadForm />
         </FormContainer>
       </Home>
     </Container>

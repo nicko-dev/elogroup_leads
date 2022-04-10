@@ -4,7 +4,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearMsg, createLead } from '../../storeConfig/slices/leadsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
-import MuiPhoneNumber from 'material-ui-phone-number';
 import leadSchema from './leadSchema';
 
 //array contendo os campos de checkbox do form
@@ -27,7 +26,7 @@ const oportunities = [
     },
 ];
 
-const Form = () => {
+const LeadForm = () => {
     const dispatch = useDispatch();
     const { handleSubmit, control, setValue, reset, formState: { errors }} = useForm({
         resolver: yupResolver(leadSchema),
@@ -114,4 +113,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default LeadForm;

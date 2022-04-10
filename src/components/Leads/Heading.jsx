@@ -8,7 +8,7 @@ const headingTheme = createTheme({ palette: { mode: "dark" } });
 const Heading = ({ stages }) => {
   return (
     <ThemeProvider theme={headingTheme}>
-      <Row stages={stages} />
+      <Row stages={stages} heading={true} />
     </ThemeProvider>
   );
 };
