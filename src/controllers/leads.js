@@ -1,11 +1,13 @@
+import { encryptLocal } from "./utils"
+
 export const importLeads = () => {
-    if(!localStorage.getItem("leads")){
-        localStorage.setItem("leads", JSON.stringify([]))
+    if(!encryptLocal.getItem("leads")){
+        encryptLocal.setItem("leads", [])
     }
-    return JSON.parse(localStorage.getItem("leads"))
+    return encryptLocal.getItem("leads")
 }
 
 export const setLeads = (leads) => {
-    localStorage.setItem("leads", JSON.stringify(leads))
+    encryptLocal.setItem("leads", leads)
     return leads
 }

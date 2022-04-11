@@ -1,5 +1,5 @@
 import { Modal, Box } from '@mui/material';
-import React from 'react'
+import React from 'react';
 import LeadForm from '../../LeadForm/LeadForm';
 
 const style = {
@@ -7,20 +7,17 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: "40%",
-  };
+    width: '450px',
+};
 
-const CreateModal = ({open, handleClose}) => {
-  return (
-    <Modal
-        open={open}
-        onClose={handleClose}
-      >
-        <Box sx={style}>
-          <LeadForm />
-        </Box>
-      </Modal>
-  )
-}
+const CreateModal = ({ open, handleClose }) => {
+    return (
+        <Modal open={open} onClose={handleClose}>
+            <Box sx={style}>
+                <LeadForm />
+            </Box>
+        </Modal>
+    );
+};
 
-export default CreateModal
+export default CreateModal;

@@ -6,7 +6,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '40%',
+    width: '500px'
 };
 
 const LeadModal = ({ open, lead, handleClose }) => {
@@ -30,9 +30,9 @@ const LeadModal = ({ open, lead, handleClose }) => {
                             </Typography>
                             <Typography sx={{ mt: 1 }}>Telefone: {lead.phone}</Typography>
                             <Typography sx={{ mt: 1 }}>Email: {lead.email}</Typography>
-                            <Typography sx={{ mt: 1 }}>Interesses: {showOportunities()}</Typography>
+                            <Typography sx={{ mt: 1 }}>Oportunidades: {showOportunities()}</Typography>
                             <Typography variant='h6' fontWeight='bold' component='h1' sx={{ mt: 3 }}>
-                                Informações do criador
+                                Lead criada por:
                             </Typography>
                             <Typography sx={{ mt: 1 }}>Nome: {lead.createdBy.firstName + ' ' + lead.createdBy.lastName}</Typography>
                             <Typography sx={{ mt: 1 }}>Email: {lead.createdBy.email}</Typography>

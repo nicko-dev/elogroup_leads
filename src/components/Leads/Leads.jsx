@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getLeads, selectAllLeads } from '../../storeConfig/slices/leadsSlice';
 import CreateModal from './Modals/CreateModal';
 import LeadModal from './Modals/LeadModal';
+import DeleteModal from './Modals/DeleteModal';
 
 //array de estágios possíveis da lead
 const stages = ['Cliente Potencial', 'Dados Confirmados', 'Reunião Agendada'];
@@ -29,6 +30,7 @@ const Leads = () => {
 
     const [showLeadForm, setShowLeadForm] = useState(false);
     const [showLead, setShowLead] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState('')
 
     const handleShowLeadForm = () => {
         setShowLeadForm(prev => !prev);
@@ -38,6 +40,10 @@ const Leads = () => {
         !showLead ? setShowLead(lead) : setShowLead('') ;
     };
 
+    const handleConfirmDelete = lead => {
+        !confirmDelete ? setConfirmDelete(lead) : setConfirmDelete('') ;
+    };
+
 
     useEffect(() => {
         if (leadsStatus !== 'succeeded') {
@@ -45,10 +51,12 @@ const Leads = () => {
         }
     }, [leadsStatus]);
 
+
     return (
         <>
             <CreateModal open={showLeadForm} handleClose={handleShowLeadForm} />
             <LeadModal open={!!showLead} handleClose={handleShowLead} lead={showLead}/>
+            <DeleteModal open={!!confirmDelete} handleClose={handleConfirmDelete} lead={confirmDelete}/>
             <Button size='large' variant='contained' color='primary' sx={{ marginLeft: 3, marginBottom: 2 }} onClick={handleShowLeadForm}>
                 Criar Lead
             </Button>
@@ -57,7 +65,7 @@ const Leads = () => {
                     <Grid sx={{ marginX: 1 }}>
                         <Heading stages={stages} />
                         {leads.map((lead, idx) => (
-                            <Row key={idx} lead={lead} stages={stages} handleInfo={handleShowLead}/>
+                            <Row key={idx} lead={lead} stages={stages} handleInfo={handleShowLead} handleDelete={handleConfirmDelete}/>
                         ))}
                     </Grid>
                 </Grow>

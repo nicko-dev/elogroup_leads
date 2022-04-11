@@ -20,7 +20,7 @@ const Item = styled(Paper, { shouldForwardProp: prop => prop !== 'color' })(({ t
     alignSelf: 'center',
 }));
 
-const Row = ({ lead, stages, heading, handleInfo }) => {
+const Row = ({ lead, stages, heading, handleInfo, handleDelete }) => {
     const dispatch = useDispatch();
 
     //função que atualiza o estado do componente quando um item é "dropado" no local adequado
@@ -78,7 +78,7 @@ const Row = ({ lead, stages, heading, handleInfo }) => {
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <Avatar sx={{marginRight:1}}>
-                            <Button color='inherit' onClick={() => dispatch(removeLead(lead))}>
+                            <Button color='inherit' onClick={() => handleDelete(lead)}>
                                 <DeleteOutlineIcon />
                             </Button>
                         </Avatar>

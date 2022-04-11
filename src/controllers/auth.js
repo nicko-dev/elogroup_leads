@@ -1,17 +1,20 @@
+import { encryptLocal, encryptSession } from "./utils"
+
 export const importUsers = () => {
-    if (!localStorage.getItem('users')) {
-        localStorage.setItem('users', JSON.stringify([]));
+    if (!encryptLocal.getItem('users')) {
+        encryptLocal.setItem('users', []);
     }
-    return JSON.parse(localStorage.getItem('users'));
+    return encryptLocal.getItem('users');
 };
 
 export const setUsers = auth => {
-    localStorage.setItem('users', JSON.stringify(auth));
+    encryptLocal.setItem('users', auth);
     return auth;
 };
 
 export const findUser = email => {
     const users = importUsers();
+    console.log(users)
     return users.find(user => user.email === email);
 };
 
@@ -31,19 +34,19 @@ export const loginUser = loginInfo => {
         return 0;
     }
     const { password, ...userInfo } = user;
-    sessionStorage.setItem('auth', JSON.stringify(userInfo));
+    encryptSession.setItem('auth', userInfo);
     return userInfo;
 };
 
 export const setAuth = info => {
-    sessionStorage.setItem('auth', JSON.stringify(info));
+    encryptSession.setItem('auth', info);
     return info;
 };
 
 export const getAuth = () => {
-    return JSON.parse(sessionStorage.getItem('auth'));
+    return encryptSession.getItem('auth');
 };
 
 export const clearAuth = () => {
-    sessionStorage.clear()
+    encryptSession.clear()
 }
