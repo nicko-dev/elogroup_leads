@@ -28,7 +28,7 @@ export const leads = createSlice({
                     msg: 'Já existe uma Lead com este nome',
                 };
             } else {
-                const newLead = { ...payload, stage: 0, crearedAt: new Date() };
+                const newLead = { ...payload, stage: 0};
                 const leadsArray = importLeads();
                 setLeads([...leadsArray, newLead]);
                 state.status = 'updated';
@@ -53,9 +53,19 @@ export const leads = createSlice({
             }
         },
         removeLead: (state, { payload }) => {
-            console.log(payload);
+            if (!state.ids.includes(payload.name)) {
+                state.message = {
+                    status: 'failed',
+                    msg: 'Lead não encontrado',
+                };
+            } else {
+                const leadsArray = importLeads();
+                let newLeadsArray = leadsArray.filter(({ name }) => payload.name !== name);
+                setLeads(newLeadsArray);
+                state.status = 'updated';
+            }
         },
-        clearMsg: state => {
+        clearLeadMsg: state => {
             state.message = null;
         },
     },
@@ -63,7 +73,7 @@ export const leads = createSlice({
 
 //action creators
 
-export const { getLeads, createLead, updateLead, removeLead, clearMsg } = leads.actions;
+export const { getLeads, createLead, updateLead, removeLead, clearLeadMsg } = leads.actions;
 
 //selectors
 

@@ -31,6 +31,19 @@ export const loginUser = loginInfo => {
         return 0;
     }
     const { password, ...userInfo } = user;
-    sessionStorage.setItem("auth", JSON.stringify(userInfo))
+    sessionStorage.setItem('auth', JSON.stringify(userInfo));
     return userInfo;
 };
+
+export const setAuth = info => {
+    sessionStorage.setItem('auth', JSON.stringify(info));
+    return info;
+};
+
+export const getAuth = () => {
+    return JSON.parse(sessionStorage.getItem('auth'));
+};
+
+export const clearAuth = () => {
+    sessionStorage.clear()
+}

@@ -1,9 +1,11 @@
-import React from 'react';
-import { Paper, styled } from '@mui/material';
-import { useDrag, useDrop } from 'react-dnd';
+import React, { useState } from 'react';
+import { Avatar, Paper, styled, Box, Button } from '@mui/material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
+import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { updateLead } from '../../storeConfig/slices/leadsSlice';
+import { removeLead, updateLead } from '../../storeConfig/slices/leadsSlice';
+import leadSchema from '../LeadForm/leadSchema';
 
 const Item = styled(Paper, { shouldForwardProp: prop => prop !== 'color' })(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#8A8C8D' : '#fff',
@@ -18,7 +20,7 @@ const Item = styled(Paper, { shouldForwardProp: prop => prop !== 'color' })(({ t
     alignSelf: 'center',
 }));
 
-const Row = ({ lead, stages, heading }) => {
+const Row = ({ lead, stages, heading, handleInfo }) => {
     const dispatch = useDispatch();
 
     //função que atualiza o estado do componente quando um item é "dropado" no local adequado
@@ -69,8 +71,24 @@ const Row = ({ lead, stages, heading }) => {
                     return <Item key={idx} />;
                 }
             })}
-            {//se for a linha de cabeçalho, retorna um elemento vazio, caso contrário retorna as opções da lead
-                heading ? <div/> : <Item />
+            {
+                //se for a linha de cabeçalho, retorna um elemento vazio, caso contrário retorna as opções da lead
+                heading ? (
+                    <div></div>
+                ) : (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Avatar sx={{marginRight:1}}>
+                            <Button color='inherit' onClick={() => dispatch(removeLead(lead))}>
+                                <DeleteOutlineIcon />
+                            </Button>
+                        </Avatar>
+                        <Avatar>
+                            <Button color='inherit' onClick={() => handleInfo(lead)}>
+                                INFO
+                            </Button>
+                        </Avatar>
+                    </Box>
+                )
             }
         </>
     );

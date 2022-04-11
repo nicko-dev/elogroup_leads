@@ -1,38 +1,31 @@
-import React from "react";
-import { Container, Box, styled } from "@mui/material";
-import Leads from "./components/Leads/Leads";
-import LeadForm from "./components/LeadForm/LeadForm";
-import NavBar from "./components/NavBar/NavBar";
-import AuthForm from "./components/AuthForm/AuthForm";
-
-const Home = styled(Box)(() => ({
-  display: "flex",
-  justifyContent: "space-between",
-}));
-
-const LeadsContainer = styled(Box)(() => ({
-  width:  "60%",
-}));
-
-const FormContainer = styled(Box)(() => ({
-  width: "30%",
-}));
+import React from 'react';
+import { Container, Box, styled } from '@mui/material';
+import Leads from './components/Leads/Leads';
+import LeadForm from './components/LeadForm/LeadForm';
+import NavBar from './components/NavBar/NavBar';
+import AuthForm from './components/AuthForm/AuthForm';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  return (
-    <Container maxWidth="lg">
-      <NavBar />
-      <AuthForm />
-      <Home>
-        <LeadsContainer>
-          <Leads />
-        </LeadsContainer>
-        <FormContainer>
-          <LeadForm />
-        </FormContainer>
-      </Home>
-    </Container>
-  );
+    const user = useSelector(state => state.auth?.user);
+
+    return (
+        <Container maxWidth='lg'>
+            <NavBar />
+            {!user ? (
+                <Routes>
+                    <Route path='/auth' element={<AuthForm />} />
+                    <Route path='*' element={<Navigate to='/auth' replace={true} />} />
+                </Routes>
+            ) : (
+                <Routes>
+                    <Route path='/home' element={<Leads />} />
+                    <Route path='*' element={<Navigate to='/home' replace={true} />} />
+                </Routes>
+            )}
+        </Container>
+    );
 };
 
 export default App;

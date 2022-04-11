@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Paper, TextField, Checkbox, Button, Box, FormControlLabel, FormGroup } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearMsg, createLead } from '../../storeConfig/slices/leadsSlice';
+import { clearLeadMsg, createLead } from '../../storeConfig/slices/leadsSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import leadSchema from './leadSchema';
 
@@ -28,10 +28,17 @@ const oportunities = [
 
 const LeadForm = () => {
     const dispatch = useDispatch();
-    const { handleSubmit, control, setValue, reset, formState: { errors }} = useForm({
+    const {
+        handleSubmit,
+        control,
+        setValue,
+        reset,
+        formState: { errors },
+    } = useForm({
         resolver: yupResolver(leadSchema),
     });
 
+    const user = useSelector(state => state.auth?.user);
     const message = useSelector(state => state.leads.message);
     const [selectedItems, setSelectedItems] = useState([]);
 
@@ -58,33 +65,33 @@ const LeadForm = () => {
     }, [selectedItems]);
 
     const onSubmit = data => {
-        dispatch(createLead(data));
+        dispatch(createLead({ ...data, createdBy: user }));
     };
 
     const resetForm = () => {
         reset();
         setSelectedItems([]);
-        dispatch(clearMsg());
+        dispatch(clearLeadMsg());
     };
 
     return (
         <Paper sx={{ padding: 2 }}>
             <Box component={'form'} autoComplete='off' sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant='h6'>Criar Lead</Typography>
-                    <Box sx={{ width: '100%'}}>
-                        <Controller name="name" control={control} defaultValue='' render={({ field: { onChange, value } }) => <TextField onChange={onChange} value={value} label="Nome *" fullWidth sx={{marginY:1}} />} />
-                        <Typography variant={'body1'} sx={{ color: 'red' }}>
-                            {errors.name?.message}
-                        </Typography>
-                        <Controller name="phone" control={control} defaultValue='' render={({ field: { onChange, value } }) => <TextField onChange={onChange} value={value} label="Telefone *" fullWidth sx={{marginY:1}}/>} />
-                        <Typography variant={'body1'} sx={{ color: 'red' }}>
-                            {errors.phone?.message}
-                        </Typography>
-                        <Controller name="email" control={control} defaultValue='' render={({ field: { onChange, value } }) => <TextField onChange={onChange} value={value} label="Email *" fullWidth sx={{marginY:1}}/>} />
-                        <Typography variant={'body1'} sx={{ color: 'red' }}>
-                            {errors.email?.message}
-                        </Typography>
-                    </Box>
+                <Box sx={{ width: '100%' }}>
+                    <Controller name='name' control={control} defaultValue='' render={({ field: { onChange, value } }) => <TextField onChange={onChange} value={value} label='Nome *' fullWidth sx={{ marginY: 1 }} />} />
+                    <Typography variant={'body1'} sx={{ color: 'red' }}>
+                        {errors.name?.message}
+                    </Typography>
+                    <Controller name='phone' control={control} defaultValue='' render={({ field: { onChange, value } }) => <TextField onChange={onChange} value={value} label='Telefone *' fullWidth sx={{ marginY: 1 }} />} />
+                    <Typography variant={'body1'} sx={{ color: 'red' }}>
+                        {errors.phone?.message}
+                    </Typography>
+                    <Controller name='email' control={control} defaultValue='' render={({ field: { onChange, value } }) => <TextField onChange={onChange} value={value} label='Email *' fullWidth sx={{ marginY: 1 }} />} />
+                    <Typography variant={'body1'} sx={{ color: 'red' }}>
+                        {errors.email?.message}
+                    </Typography>
+                </Box>
                 <Typography variant='body1' sx={{ fontWeight: '500' }}>
                     Oportunidades *
                 </Typography>
@@ -102,12 +109,14 @@ const LeadForm = () => {
                 <Typography variant={'body1'} sx={{ color: message?.status === 'success' ? 'blue' : 'red', marginBottom: 2 }}>
                     {message?.type === 'form' && message.msg}
                 </Typography>
-                <Button variant='contained' color='primary' size='large' onClick={handleSubmit(onSubmit)} sx={{ width: '60%', marginBottom: 1 }}>
-                    Cadastrar
-                </Button>
-                <Button variant='outlined' color='primary' size='large' onClick={resetForm} sx={{ width: '60%' }}>
-                    Limpar Campos
-                </Button>
+                <Box sx={{width: "100%", display: 'flex', justifyContent:'space-evenly'}}>
+                    <Button variant='contained' color='primary' size='large' onClick={handleSubmit(onSubmit)} sx={{ width: '40%' }}>
+                        Cadastrar
+                    </Button>
+                    <Button variant='outlined' color='primary' size='large' onClick={resetForm} sx={{ width: '40%' }}>
+                        Limpar Campos
+                    </Button>
+                </Box>
             </Box>
         </Paper>
     );

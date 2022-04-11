@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Grow, styled } from '@mui/material';
+import { Button, Grow, Modal, styled, Box } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Row from './Row';
 import Heading from './Heading';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getLeads, selectAllLeads } from '../../storeConfig/slices/leadsSlice';
+import CreateModal from './Modals/CreateModal';
+import LeadModal from './Modals/LeadModal';
 
 //array de estágios possíveis da lead
 const stages = ['Cliente Potencial', 'Dados Confirmados', 'Reunião Agendada'];
@@ -14,18 +16,28 @@ const gridTheme = createTheme({ columns: stages.length });
 
 const Grid = styled('div')(({ theme }) => ({
     display: 'grid',
-    gridTemplateColumns: `repeat(${theme.columns}, 1fr) .5fr`,
+    gridTemplateColumns: `repeat(${theme.columns}, 1fr) .25fr`,
     gridTemplateRows: theme.spacing(6),
     gridAutoRows: theme.spacing(11),
     gap: theme.spacing(1),
-    marginLeft: theme.spacing(2),
-    marginBottom: theme.spacing(2),
 }));
 
 const Leads = () => {
     const dispatch = useDispatch();
     const leadsStatus = useSelector(state => state.leads.status);
     const leads = useSelector(selectAllLeads);
+
+    const [showLeadForm, setShowLeadForm] = useState(false);
+    const [showLead, setShowLead] = useState('');
+
+    const handleShowLeadForm = () => {
+        setShowLeadForm(prev => !prev);
+    };
+
+    const handleShowLead = lead => {
+        !showLead ? setShowLead(lead) : setShowLead('') ;
+    };
+
 
     useEffect(() => {
         if (leadsStatus !== 'succeeded') {
@@ -34,16 +46,23 @@ const Leads = () => {
     }, [leadsStatus]);
 
     return (
-        <ThemeProvider theme={gridTheme}>
-            <Grow in>
-                <Grid>
-                    <Heading stages={stages} />
-                    {leads.map((lead, idx) => (
-                        <Row key={idx} lead={lead} stages={stages} />
-                    ))}
-                </Grid>
-            </Grow>
-        </ThemeProvider>
+        <>
+            <CreateModal open={showLeadForm} handleClose={handleShowLeadForm} />
+            <LeadModal open={!!showLead} handleClose={handleShowLead} lead={showLead}/>
+            <Button size='large' variant='contained' color='primary' sx={{ marginLeft: 3, marginBottom: 2 }} onClick={handleShowLeadForm}>
+                Criar Lead
+            </Button>
+            <ThemeProvider theme={gridTheme}>
+                <Grow in>
+                    <Grid sx={{ marginX: 1 }}>
+                        <Heading stages={stages} />
+                        {leads.map((lead, idx) => (
+                            <Row key={idx} lead={lead} stages={stages} handleInfo={handleShowLead}/>
+                        ))}
+                    </Grid>
+                </Grow>
+            </ThemeProvider>
+        </>
     );
 };
 

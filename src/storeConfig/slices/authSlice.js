@@ -1,12 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginUser, registerUser } from '../../controllers/auth';
+import { clearAuth, getAuth, loginUser, registerUser } from '../../controllers/auth';
 
-const initialState = sessionStorage.getItem('auth')
-    ? JSON.parse(sessionStorage.getItem('auth'))
-    : {
-          user: null,
-          message: null,
-      };
+const initialState = {
+    user: getAuth() ? getAuth() : null,
+    message: null,
+};
 
 export const auth = createSlice({
     name: 'auth',
@@ -40,14 +38,18 @@ export const auth = createSlice({
                 state.message = null;
             }
         },
-        logout: () => {
-            console.log('deslogar');
+        logout: (state) => {
+            clearAuth();
+            state.user = null;
+        },
+        clearAuthMsg: (state) => {
+            state.message = null;
         },
     },
 });
 
 //action creators
 
-export const { singUp, login, logout } = auth.actions;
+export const { singUp, login, logout, clearAuthMsg } = auth.actions;
 
 export default auth.reducer;

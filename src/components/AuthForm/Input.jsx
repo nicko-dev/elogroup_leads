@@ -1,9 +1,9 @@
 import React from 'react';
-import { TextField, Grid, InputAdornment, IconButton } from '@mui/material';
+import { TextField, Grid, InputAdornment, IconButton, Typography } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const Input = ({ half, name, label, autoFocus, type, handleShowPassword, register, required }) => {
+const Input = ({ half, name, label, autoFocus, type, handleShowPassword, register, required, errors }) => {
     return (
         <Grid item xs={12} sm={half ? 6 : 12}>
             <TextField
@@ -22,6 +22,9 @@ const Input = ({ half, name, label, autoFocus, type, handleShowPassword, registe
                     inputProps: { ...register(name, { required }), defaultValue: null },
                 }}
             />
+            <Typography variant={'body1'} sx={{ color: 'red' }}>
+                {errors?.[name]?.message}
+            </Typography>
         </Grid>
     );
 };
