@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Paper, styled, Box, Button } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
+import { useDoubleTap } from 'use-double-tap';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { updateLead } from '../../storeConfig/slices/leadsSlice';
@@ -29,6 +30,11 @@ const Row = ({ lead, stages, heading, handleInfo, handleDelete }) => {
         dispatch(updateLead(updatedLead));
     };
 
+    //hook da biblioteca "use-double-tap" que habilita a mudança de estágio em dispositivos mobile com um toque duplo
+    const bind = useDoubleTap(() => {
+        handleChange();
+    });
+
     //hook da biblioteca "react-dnd" para identificar os itens "dragáveis"
     const [{ isDragging }, drag] = useDrag(
         () => ({
@@ -55,12 +61,18 @@ const Row = ({ lead, stages, heading, handleInfo, handleDelete }) => {
                     // sem lead retorna itens do cabeçalho (estágios)
                     return <Item key={idx}>{stage}</Item>;
                 } else if (idx === lead.stage) {
+                    if (idx === stages.length - 1) {
+                        // se tem lead e o a lead está no estágio final, retorna o Item apenas com o nome da lead
+                        return <Item key={idx}>{lead.name}</Item>;
+                    } else {
+                        // se tem lead e o indice do array é igual ao estágio da lead, retorna o Item "dragável" com o nome da lead
+                        return (
+                            <Item key={idx} ref={drag} {...bind}>
+                                {lead.name}
+                            </Item>
+                        );
+                    }
                     // se tem lead e o indice do array é igual ao estágio da lead, retorna o Item "dragável" com o nome da lead
-                    return (
-                        <Item key={idx} ref={drag}>
-                            {lead.name}
-                        </Item>
-                    );
                 } else if (idx === lead.stage + 1) {
                     //se é o espaço à direita do estágio atual da lead, retorna o Item "dropável"
                     return <Item key={idx} ref={drop} style={{ border: isOver ? 'solid 3px' : '' }} />;
@@ -75,7 +87,7 @@ const Row = ({ lead, stages, heading, handleInfo, handleDelete }) => {
                     <div></div>
                 ) : (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Avatar sx={{marginRight:1}}>
+                        <Avatar sx={{ marginRight: 1 }}>
                             <Button color='inherit' onClick={() => handleDelete(lead)}>
                                 <DeleteOutlineIcon />
                             </Button>
