@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grow, Modal, styled, Box } from '@mui/material';
+import { Button, Grow, styled } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Row from './Row';
 import Heading from './Heading';
@@ -49,7 +49,7 @@ const Leads = () => {
         if (leadsStatus !== 'succeeded') {
             dispatch(getLeads());
         }
-    }, [leadsStatus]);
+    }, [leadsStatus, dispatch]);
 
 
     return (

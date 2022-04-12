@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, Paper, styled, Box, Button } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { removeLead, updateLead } from '../../storeConfig/slices/leadsSlice';
-import leadSchema from '../LeadForm/leadSchema';
+import { updateLead } from '../../storeConfig/slices/leadsSlice';
 
 const Item = styled(Paper, { shouldForwardProp: prop => prop !== 'color' })(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#8A8C8D' : '#fff',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,13 +9,10 @@ import { clearAuthMsg, login, singUp } from '../../storeConfig/slices/authSlice'
 import Input from './Input';
 import userSchema from './userSchema';
 import loginSchema from './loginSchema';
-import { useNavigate } from 'react-router-dom';
 
 const AuthForm = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const message = useSelector(state => state.auth.message);
-    const user = useSelector(state => state.auth?.user)
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);

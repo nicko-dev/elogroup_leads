@@ -1,7 +1,6 @@
 import React from 'react';
-import { Container, Box, styled } from '@mui/material';
+import { Container } from '@mui/material';
 import Leads from './components/Leads/Leads';
-import LeadForm from './components/LeadForm/LeadForm';
 import NavBar from './components/NavBar/NavBar';
 import AuthForm from './components/AuthForm/AuthForm';
 import { Navigate, Route, Routes } from 'react-router-dom';

@@ -56,7 +56,7 @@ const LeadForm = () => {
     //registra os valores de checkbox marcados utilizando o hook setValue do hook-form
     useEffect(() => {
         setValue('oportunities', selectedItems);
-    }, [selectedItems]);
+    }, [selectedItems, setValue]);
 
     const onSubmit = data => {
         dispatch(createLead({...data, createdBy: user}));

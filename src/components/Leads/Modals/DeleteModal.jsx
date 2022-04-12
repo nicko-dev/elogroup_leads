@@ -1,6 +1,5 @@
 import React from 'react'
 import { Paper, Modal, Box, Typography, Button } from '@mui/material';
-import { width } from '@mui/system';
 import { useDispatch } from 'react-redux';
 import { removeLead } from '../../../storeConfig/slices/leadsSlice';
 

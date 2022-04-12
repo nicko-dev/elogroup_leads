@@ -7,7 +7,7 @@ const userSchema = yup.object({
     password: yup
         .string()
         .required('Campo obrigatório')
-        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial'),
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d])(?=.*[!@#%&])(?=.{8,})/, 'Deve conter pelo menos 8 caracteres, uma letra maiúscula, uma letra minúscula, um número e um caractere especial'),
     confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Os passwords devem ser iguais'),
 });
 
