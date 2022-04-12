@@ -22,7 +22,8 @@ O usuário autenticado pode realizar as seguintes ações:
 * O aplicativo foi desenvolvido utilizando o framework ReactJs com o template CREATE-REACT-APP, além de diversas bibliotecas. Como o app não possui back-end, os dados das leads e de usuários são armazenados no armazenamento local do navegador (local/session Storage).
 * Foi implementada a persistência do login para que o usuário mantenha-se logado mesmo após um evento de "refresh" do browser. Os dados do usuário atual ficam armazenados no sessionStorage para impedir que o usuário mantenha-se logado após o fechamento do app.
 * A ação de "drag-and-drop" ainda não foi totalmente implementada para dispositivos mobile, por isso foi implementada a ação de "toque duplo" em substituição.
-
+* A chave de criptografia do Storage foi mantida nos arquivo de desenvolvimento, visto que variáveis de ambiente ficam disponíveis no bundle de "build" do app como é explicado [aqui](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+ 
 ## Lista de bibliotecas usadas:
 1. react-redux/reduxjs-toolkit: Utilizado para realizar o gerenciamento de estados do app.
 2. material-ui: Criação os layouts e componentes.
@@ -32,3 +33,4 @@ O usuário autenticado pode realizar as seguintes ações:
 6. react-dnd: Habilita a função "drag-and-drop" no ambiente desktop 
 7. use-double-tap: Habilita a função "toque duplo" no ambiente mobile
 8. encrypt-storage: Criptografa os dados armazenados no local/session Storage
+9. dotenv: Habilida variáveis de ambiente no React
