@@ -19,9 +19,9 @@ O usuário autenticado pode realizar as seguintes ações:
 
 ## Especificações:
 
-O aplicativo foi desenvolvido utilizando o framework ReactJs com o template CREATE-REACT-APP, além de diversas bibliotecas. Como o app não possui back-end, os dados das leads e de usuários são armazenados no armazenamento local do navegador (local/session Storage).\
-Foi implementada a persistência do login para que o usuário mantenha-se logado mesmo após um evento de "refresh" do browser. Os dados do usuário atual ficam armazenados no sessionStorage para impedir que o usuário mantenha-se logado após o fechamento do app.
-A ação de "drag-and-drop" ainda não foi totalmente implementada para dispositivos mobile, por isso foi implementada a ação de "toque duplo" em substituição.
+* O aplicativo foi desenvolvido utilizando o framework ReactJs com o template CREATE-REACT-APP, além de diversas bibliotecas. Como o app não possui back-end, os dados das leads e de usuários são armazenados no armazenamento local do navegador (local/session Storage).
+* Foi implementada a persistência do login para que o usuário mantenha-se logado mesmo após um evento de "refresh" do browser. Os dados do usuário atual ficam armazenados no sessionStorage para impedir que o usuário mantenha-se logado após o fechamento do app.
+* A ação de "drag-and-drop" ainda não foi totalmente implementada para dispositivos mobile, por isso foi implementada a ação de "toque duplo" em substituição.
 
 ## Lista de bibliotecas usadas:
 1. react-redux/reduxjs-toolkit: Utilizado para realizar o gerenciamento de estados do app.
