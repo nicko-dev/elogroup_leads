@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# ELOGROUP Leads
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicativo front-end-only desenvolvido como desafio para vaga de estágio em desenvolvimento da ELOGROUP.\
+O aplicativo consiste em um sistema de gerenciamento de "leads" protegido com autenticação local.
 
-## Available Scripts
+## Fluxo principal do app:
 
-In the project directory, you can run:
+1. Ao iniciar o aplicativo, o usuário dese ser autenticado para acessar o sistema de gerenciamento de "leads". Para isso ele deve criar uma conta utilizando a opção "criar conta" no canto inferior direito do formulário de login.\
+Após criar sua conta, o usuário pode realizar login através do formulário de login.
 
-### `npm start`
+2. Uma vez autenticado, o usuário tem acesso a tabela de "leads", organizadas alfabeticamente e dispostas segundo seu "estágio" atual.\
+O usuário autenticado pode realizar as seguintes ações:
+    1. Criar uma nova lead através do botão "CRIAR LEAD" localizado no canto superior esquerdo da tela.
+    2. Consultar informações da lead através do botão "INFO", localizado ao lado direito de cada lead.
+    3. Atualizar o estágio atual da lead através da ação de "drag-and-drop". Caso o app esteja sendo utilizado em um dispositivo móvel, a mesma função pode ser acessada através do toque-duplo sobre o nome da lead.
+    4. Excluir a lead atravéz do ícone "LIXEIRA" localizado ao lado direito de cada lead.
+ 
+3. Concluído o uso do app, o usuário pode se deslogar atravavés do botão "LOGOUT" localizado no canto superior direito da tela.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Especificações:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* O aplicativo foi desenvolvido utilizando o framework ReactJs com o template CREATE-REACT-APP, além de diversas bibliotecas. Como o app não possui back-end, os dados das leads e de usuários são armazenados no armazenamento local do navegador (local/session Storage).
+* Foi implementada a persistência do login para que o usuário mantenha-se logado mesmo após um evento de "refresh" do browser. Os dados do usuário atual ficam armazenados no sessionStorage para impedir que o usuário mantenha-se logado após o fechamento do app.
+* A ação de "drag-and-drop" ainda não foi totalmente implementada para dispositivos mobile, por isso foi implementada a ação de "toque duplo" em substituição.
+* A chave de criptografia do Storage foi mantida nos arquivo de desenvolvimento, visto que variáveis de ambiente ficam disponíveis no bundle de "build" do app como é explicado [aqui](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+ 
+## Lista de bibliotecas usadas:
+1. react-redux/reduxjs-toolkit: Utilizado para realizar o gerenciamento de estados do app.
+2. material-ui: Criação os layouts e componentes.
+3. react-router-dom: Gerenciamento de rotas.
+4. react-hook-form: Controle de formulários.
+5. yup: Autenticação de formulários através de esquemas.
+6. react-dnd: Habilita a função "drag-and-drop" no ambiente desktop 
+7. use-double-tap: Habilita a função "toque duplo" no ambiente mobile
+8. encrypt-storage: Criptografa os dados armazenados no local/session Storage
