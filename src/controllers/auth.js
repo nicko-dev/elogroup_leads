@@ -14,7 +14,6 @@ export const setUsers = auth => {
 
 export const findUser = email => {
     const users = importUsers();
-    console.log(users)
     return users.find(user => user.email === email);
 };
 

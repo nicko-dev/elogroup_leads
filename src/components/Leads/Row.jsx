@@ -26,7 +26,6 @@ const Row = ({ lead, stages, heading, handleInfo, handleDelete }) => {
     //função que atualiza o estado do componente quando um item é "dropado" no local adequado
     const handleChange = () => {
         let nextStage = lead.stage + 1;
-        console.log(lead);
         let updatedLead = { ...lead, stage: nextStage };
         dispatch(updateLead(updatedLead));
     };
