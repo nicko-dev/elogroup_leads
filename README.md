@@ -33,4 +33,3 @@ O usuário autenticado pode realizar as seguintes ações:
 6. react-dnd: Habilita a função "drag-and-drop" no ambiente desktop 
 7. use-double-tap: Habilita a função "toque duplo" no ambiente mobile
 8. encrypt-storage: Criptografa os dados armazenados no local/session Storage
-9. dotenv: Habilida variáveis de ambiente no React
