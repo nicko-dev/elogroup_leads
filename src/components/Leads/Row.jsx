@@ -18,6 +18,7 @@ const Item = styled(Paper, { shouldForwardProp: prop => prop !== 'color' })(({ t
     alignItems: 'center',
     fontWeight: '500',
     alignSelf: 'center',
+    padding: "5px"
 }));
 
 const Row = ({ lead, stages, heading, handleInfo, handleDelete }) => {

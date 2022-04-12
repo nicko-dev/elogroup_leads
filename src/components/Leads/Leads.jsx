@@ -19,8 +19,8 @@ const Grid = styled('div')(({ theme }) => ({
     display: 'grid',
     gridTemplateColumns: `repeat(${theme.columns}, 1fr) .25fr`,
     gridTemplateRows: theme.spacing(6),
-    gridAutoRows: theme.spacing(11),
-    gap: theme.spacing(1),
+    gridAutoRows: theme.spacing(9),
+    gap: theme.spacing(2),
 }));
 
 const Leads = () => {
